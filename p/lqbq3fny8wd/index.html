@@ -65,7 +65,7 @@ body{font-family:var(--font);color:var(--ink);background:#EEF2FA;
   -webkit-font-smoothing:antialiased;font-optical-sizing:auto;overflow-x:hidden}
 
 /* ═══ фон: широкие мягкие поля + едва различимое зерно ═══ */
-.air{position:fixed;inset:0;z-index:-1;pointer-events:none;
+.air{position:fixed;inset:0;z-index:-1;pointer-events:none;transform:translateZ(0);
   background:
     radial-gradient(1200px 820px at 8% -10%,  rgba(122,158,255,.30), transparent 62%),
     radial-gradient(980px  720px at 96% 4%,   rgba(232,150,186,.22), transparent 64%),
@@ -634,7 +634,7 @@ h3{font-size:max(15px,1.9cqw);line-height:1.2;letter-spacing:-.02em;font-weight:
   will-change:transform,opacity,filter}
 .plate.in .rz{opacity:1;transform:none;filter:none}
 /* карточки ложатся на плиту, а не подлетают сбоку */
-.plate.depth .g3 > .rz{transform:translate3d(0,1.3cqw,-400px) rotateX(15deg);filter:blur(5px)}
+.plate.depth .g3 > .rz{transform:translate3d(0,1.3cqw,-400px) rotateX(15deg);filter:blur(3px)}
 .plate.in .g3 > .rz{transform:none;filter:none}
 
 .plate.settled .rz{will-change:auto;filter:none}
@@ -1033,6 +1033,7 @@ h3{font-size:max(15px,1.9cqw);line-height:1.2;letter-spacing:-.02em;font-weight:
    масштабом, печать выскакивает из центра, выноски прочерчиваются, а шайбы,
    провода и подписи приходят тройками — сначала USDT, потом Assetbox, потом
    Bitbon. Порядок не декоративный: он повторяет путь взгляда по кольцам. */
+.plate.contours.live:not(.settled) .c3-scene{will-change:transform,opacity}
 .plate.contours .c3-scene.reveal{transform:translate3d(0,20px,0) scale(.93)}
 .plate.contours.in .c3-scene.reveal{transform:none}
 
@@ -1061,6 +1062,10 @@ h3{font-size:max(15px,1.9cqw);line-height:1.2;letter-spacing:-.02em;font-weight:
    Плита прилетает снизу и отпруживает, блоки садятся в неё следом —
    каждый со своей короткой пружинкой. Словарь остаётся скупым: подъём
    и прозрачность, больше ничего. */
+/* Слой плиты готовится заранее, пока она ещё за краем экрана: иначе
+   растеризация 1280×720 с четырёхслойной тенью попадает в первый кадр
+   анимации и даёт заметный рывок. На settled слой отпускается. */
+.plate.live:not(.settled){will-change:opacity,transform}
 .plate.spring{opacity:0;transform:translate3d(0,34px,0) scale(.974);
   transition:opacity .5s var(--ease-out), transform .9s var(--spring-plate)}
 .plate.spring.in{opacity:1;transform:none}
@@ -1958,11 +1963,12 @@ function fmt(v, dec, group){
 function countUp(el){
   const to = parseFloat(el.dataset.to), dec = +el.dataset.dec || 0, group = 'group' in el.dataset;
   if(reduced){ el.textContent = fmt(to, dec, group); return; }
-  const dur = 1150; let t0 = null;
+  const dur = 1150; let t0 = null, prev = null;
   (function tick(now){
     if(t0 === null) t0 = now;
     const p = Math.min(1, (now - t0)/dur);
-    el.textContent = fmt(to * (1 - Math.pow(1 - p, 4)), dec, group);
+    const txt = fmt(to * (1 - Math.pow(1 - p, 4)), dec, group);
+    if(txt !== prev){ el.textContent = txt; prev = txt; }
     if(p < 1) requestAnimationFrame(tick); else el.textContent = fmt(to, dec, group);
   })(performance.now());
 }
@@ -2071,7 +2077,7 @@ plates.forEach((p,i)=>{
 const live = new IntersectionObserver(es=>{
   es.forEach(e=> e.target.classList.toggle('live', e.isIntersecting));
 }, {rootMargin:'40% 0px'});
-plates.forEach(p=>{ p.classList.add('live'); live.observe(p); });
+plates.forEach(p=> live.observe(p));
 
 const spy = new IntersectionObserver(es=>{
   es.forEach(e=>{
