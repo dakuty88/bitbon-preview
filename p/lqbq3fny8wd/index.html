@@ -1076,9 +1076,14 @@ h3{font-size:var(--fs-h4);line-height:1.2;letter-spacing:-.02em;font-weight:650}
 
 .t5-eyebrow{left:var(--pad-l);top:var(--y-eyebrow);font-size:var(--fs-small);font-weight:640;
   letter-spacing:.16em;text-transform:uppercase;color:var(--ink-eyebrow)}
+/* Заголовок укладывается в одну строку с запасом 0,25 % ширины — два пикселя.
+   Рендерер, у которого кириллица чуть шире (Safari на iOS), переносил «ограничен»
+   на вторую строку, и та ложилась на подзаголовок: он приколочен к своей координате.
+   Перенос запрещён — в худшем случае строка заедет под прозрачную цифру-призрак
+   (её край на 88,6 %), а не на текст. */
 .t5-title{left:var(--pad-l);top:var(--y-title);width:var(--title-max);max-width:none;
   font-size:var(--fs-h1);line-height:1.05;letter-spacing:-.03em;font-weight:700;
-  color:#0A0B0D;text-wrap:initial}
+  color:#0A0B0D;text-wrap:initial;white-space:nowrap}
 .t5-sub{left:var(--pad-l);top:var(--y-sub-1);width:74%;white-space:nowrap;
   font-size:var(--fs-lead);line-height:1.35;color:#667088}
 
@@ -1255,7 +1260,7 @@ h3{font-size:var(--fs-h4);line-height:1.2;letter-spacing:-.02em;font-weight:650}
   .plate.window .slide{position:relative;padding:26px 20px 28px;display:flex;flex-direction:column}
   .plate.window .slide > *,.plate.window .t5-strip > .t5-lab{position:static}
   .plate.window .ghost,.t5-axis,.t5-node,.t5-drop{display:none}
-  .t5-title{margin-top:16px;font-size:var(--fs-h1);width:auto}
+  .t5-title{margin-top:16px;font-size:var(--fs-h1);width:auto;white-space:normal}
   .t5-sub{margin-top:12px;font-size:var(--fs-lead);width:auto;white-space:normal}
   .plate.window .slide > .t5-strip{display:flex;position:relative;align-items:center;justify-content:space-between;
     margin-top:18px;gap:6px;row-gap:8px;flex-wrap:wrap}
