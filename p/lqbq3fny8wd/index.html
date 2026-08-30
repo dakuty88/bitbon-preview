@@ -80,18 +80,29 @@
      у каждой своя роль; шаг между соседними 13–28 %, чтобы разница читалась.
      Новый текст берёт готовую ступень. Собственный размер — только если для
      него есть роль, которой в шкале нет, и тогда ступень заводится здесь. */
-  --fs-ghost:9.6cqw;              /* призрачный номер слайда            */
-  --fs-figure:max(34px,7.8cqw); /* одиночная цифра-герой: ×0,3        */
-  --fs-hero:max(28px,5.2cqw);     /* заголовок обложки                  */
-  --fs-display:max(26px,4.4cqw);  /* цифра-акцент: 35 %, 13 500         */
-  --fs-h1:max(24px,4.05cqw);      /* заголовок слайда                   */
-  --fs-h2:max(18px,3.2cqw);       /* крупное значение: ×5, ×0,3         */
-  --fs-h3:max(16px,2.5cqw);       /* среднее значение                   */
-  --fs-h4:max(14px,2cqw);         /* значение в карточке, подзаголовок  */
-  --fs-lead:max(13px,1.6cqw);     /* подзаголовок слайда, заголовок карточки */
-  --fs-body:max(11px,1.3cqw);     /* абзац в открытой вёрстке, подписи  */
-  --fs-small:max(9px,1.12cqw);    /* текст внутри карточки, капслок-метки */
-  --fs-note:max(9px,1cqw);        /* подвал и самые мелкие подписи      */
+  /* Полы в пикселях здесь были ошибкой: раскладка слайдов координатная,
+     блоки заданы процентами от плиты. Как только плита уходит ниже ~800 px,
+     мелкий кегль упирается в пол и перестаёт уменьшаться вместе с блоком —
+     текст выпирает из своей колонки и налезает на соседний блок. В кадре
+     размеры чисто относительные; фиксированные пиксели живут только в
+     портретной колонке, где вёрстка потоковая и пол уместен. */
+  /* Номер уменьшен с 9,6: при прежнем размере он заходил под хвост длинного
+     заголовка (05 перечёркивал «ограничен», 06 — «возможностям»). Теперь его
+     левый край стоит на 87,8 %, а заголовку отведено 84 % — они не встречаются. */
+  --fs-ghost:6.6cqw;    /* призрачный номер слайда                   */
+  --ghost-right:3.4%;   /* его правое поле                           */
+  --title-max:84%;      /* заголовок обязан кончиться до номера       */
+  --fs-figure:7.8cqw;   /* одиночная цифра-герой: ×0,3               */
+  --fs-hero:5.2cqw;     /* заголовок обложки                         */
+  --fs-display:4.4cqw;  /* цифра-акцент: 35 %, 13 500                */
+  --fs-h1:4.05cqw;      /* заголовок слайда                          */
+  --fs-h2:3.2cqw;       /* крупное значение: ×5, ×0,3                */
+  --fs-h3:2.5cqw;       /* среднее значение                          */
+  --fs-h4:2cqw;         /* значение в карточке                       */
+  --fs-lead:1.6cqw;     /* подзаголовок слайда, заголовок карточки   */
+  --fs-body:1.3cqw;     /* абзац в открытой вёрстке, подписи         */
+  --fs-small:1.12cqw;   /* текст внутри карточки, капслок-метки      */
+  --fs-note:1cqw;       /* подвал и самые мелкие подписи             */
   --font:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","Helvetica Neue",Inter,"Segoe UI",sans-serif;
 }
 /* на узком экране плита сжимается, и проценты ширины дают нечитаемый кегль:
@@ -138,9 +149,6 @@ body{font-family:var(--font);color:var(--ink);background:#EEF2FA;
    мелкий текст упёрся бы в пол, пропорции разъехались и абсолютно
    спозиционированные блоки наложились бы друг на друга. */
 @media (orientation:landscape) and (max-height:600px){
-  :root{--fs-hero:5.2cqw;--fs-display:4.4cqw;--fs-h1:4.05cqw;--fs-h2:3.2cqw;
-        --fs-h3:2.5cqw;--fs-h4:2cqw;--fs-lead:1.6cqw;--fs-body:1.3cqw;
-        --fs-small:1.12cqw;--fs-note:1cqw}
   .deck{padding:10px 12px 46px;gap:14px}
   .plate{width:min(1280px, 100%, calc((100vh - 30px) * 16 / 9));
          width:min(1280px, 100%, calc((100svh - 30px) * 16 / 9));
@@ -256,7 +264,7 @@ body{font-family:var(--font);color:var(--ink);background:#EEF2FA;
 
 .cv-note{left:5.5%;top:91.2%;width:89%;font-size:var(--fs-small);line-height:1.45;color:#6B7480;
   border-top:1px solid rgba(10,11,13,.11);padding-top:1.4cqw}
-.cv-ghost{right:4.47%;top:3.04%;font-size:var(--fs-ghost);line-height:1;font-weight:700;letter-spacing:-.06em;
+.cv-ghost{right:var(--ghost-right);top:3.04%;font-size:var(--fs-ghost);line-height:1;font-weight:700;letter-spacing:-.06em;
   color:transparent;-webkit-text-stroke:.115cqw rgba(255,255,255,.92);
   font-variant-numeric:lining-nums tabular-nums;pointer-events:none;user-select:none}
 
@@ -450,7 +458,7 @@ h3{font-size:var(--fs-h4);line-height:1.2;letter-spacing:-.02em;font-weight:650}
    тот на вогнутом стыке штрихов «2» даёт остроугольный выброс — видно как
    лишний прямоугольник. У SVG стык скругляется. */
 /* нумерация слайда — тот же приём, что на обложке: белый контур в углу */
-.plate.momentum .ghost{right:4.47%;top:3.04%;font-size:var(--fs-ghost);line-height:1;font-weight:700;
+.plate.momentum .ghost{right:var(--ghost-right);top:3.04%;font-size:var(--fs-ghost);line-height:1;font-weight:700;
   letter-spacing:-.06em;z-index:3;color:transparent;
   -webkit-text-stroke:.115cqw rgba(255,255,255,.92)}
 
@@ -697,7 +705,7 @@ h3{font-size:var(--fs-h4);line-height:1.2;letter-spacing:-.02em;font-weight:650}
     linear-gradient(150deg,#F7FAFE 0%,#FCFDFF 46%,#FAF8FD 100%)}
 .plate.contours::before{background:none}
 .plate.contours .slide{padding:0;perspective:900px;perspective-origin:50% 45%}
-.plate.contours .ghost{right:4.47%;top:3.04%;font-size:var(--fs-ghost);line-height:1;font-weight:700;
+.plate.contours .ghost{right:var(--ghost-right);top:3.04%;font-size:var(--fs-ghost);line-height:1;font-weight:700;
   letter-spacing:-.06em;color:transparent;
   -webkit-text-stroke:.115cqw rgba(255,255,255,.92)}
 .plate.contours .slide > *{position:absolute}
@@ -710,7 +718,7 @@ h3{font-size:var(--fs-h4);line-height:1.2;letter-spacing:-.02em;font-weight:650}
 .c3-rule{left:3.29%;right:3.6%;top:10.1%;height:1px;
   background:linear-gradient(90deg,rgba(122,96,214,.34),rgba(28,40,90,.10) 22%,rgba(28,40,90,.07))}
 
-.c3-title{left:var(--pad-l);top:var(--y-title);width:90%;max-width:none;
+.c3-title{left:var(--pad-l);top:var(--y-title);width:var(--title-max);max-width:none;
   font-size:var(--fs-h1);line-height:1.045;letter-spacing:-.032em;font-weight:700;
   color:#0A0B0D;text-wrap:initial}
 .c3-accent{background-image:linear-gradient(97deg,#1F5FD8 0%,#5B4CCB 44%,#C13580 100%);
@@ -838,10 +846,17 @@ h3{font-size:var(--fs-h4);line-height:1.2;letter-spacing:-.02em;font-weight:650}
   .c3-rule,.c3-wires{display:none}
   .c3-title{margin-top:16px;font-size:var(--fs-h1);width:auto}
   .c3-sub{margin-top:12px;font-size:var(--fs-lead);width:auto}
-  .c3-scene{width:100%;margin:16px 0 4px;align-self:center}
-  .c3-bub{width:46px!important;height:46px;margin:20px 0 -6px;
+  /* Порядок в разметке — сначала все шайбы, потом все блоки: это нужно
+     координатной раскладке. В колонке переставляем их через order, чтобы
+     шайба стояла над своим блоком, а не отдельной стопкой у края. */
+  .c3-scene{width:86%;max-width:320px;margin:18px auto 6px;align-self:center}
+  .c3-bub{width:44px!important;height:44px;margin:22px 0 0;align-self:flex-start;
     box-shadow:0 0 0 5px var(--soft), 0 6px 16px -5px var(--soft)}
-  .c3-blk{width:auto!important;margin-top:10px}
+  .c3-blk{width:auto!important;margin-top:12px}
+  .c3-bub-usdt{order:1}   .c3-b-usdt{order:2}
+  .c3-bub-box{order:3}    .c3-b-box{order:4}
+  .c3-bub-bitbon{order:5} .c3-b-bitbon{order:6}
+  .c3-footrule{order:7}   .c3-foot{order:8}
   .c3-val,.c3-val-row{font-size:var(--fs-h2);margin-top:8px}
   .c3-note{font-size:var(--fs-small);margin-top:10px}
   .c3-footrule{margin-top:22px}
@@ -865,14 +880,14 @@ h3{font-size:var(--fs-h4);line-height:1.2;letter-spacing:-.02em;font-weight:650}
     linear-gradient(150deg,#F7FAFE 0%,#FCFDFF 44%,#FAF7FC 100%)}
 .plate.terms::before{background:none}
 .plate.terms .slide{padding:0}
-.plate.terms .ghost{right:4.47%;top:3.04%;font-size:var(--fs-ghost);line-height:1;font-weight:700;
+.plate.terms .ghost{right:var(--ghost-right);top:3.04%;font-size:var(--fs-ghost);line-height:1;font-weight:700;
   letter-spacing:-.06em;color:transparent;
   -webkit-text-stroke:.115cqw rgba(255,255,255,.92)}
 .plate.terms .slide > *{position:absolute}
 
 .t4-eyebrow{left:var(--pad-l);top:var(--y-eyebrow);font-size:var(--fs-small);font-weight:640;
   letter-spacing:.16em;text-transform:uppercase;color:var(--ink-eyebrow)}
-.t4-title{left:var(--pad-l);top:var(--y-title);width:86%;max-width:none;
+.t4-title{left:var(--pad-l);top:var(--y-title);width:var(--title-max);max-width:none;
   font-size:var(--fs-h1);line-height:1.05;letter-spacing:-.03em;font-weight:700;
   color:#0A0B0D;text-wrap:initial}
 .t4-sub{left:var(--pad-l);top:var(--y-sub-1);width:72%;white-space:nowrap;
@@ -1086,14 +1101,14 @@ h3{font-size:var(--fs-h4);line-height:1.2;letter-spacing:-.02em;font-weight:650}
     linear-gradient(150deg,#F8FAFE 0%,#FCFDFF 44%,#FDF7FB 100%)}
 .plate.window::before{background:none}
 .plate.window .slide{padding:0}
-.plate.window .ghost{right:4.47%;top:3.04%;font-size:var(--fs-ghost);line-height:1;font-weight:700;
+.plate.window .ghost{right:var(--ghost-right);top:3.04%;font-size:var(--fs-ghost);line-height:1;font-weight:700;
   letter-spacing:-.06em;color:transparent;
   -webkit-text-stroke:.115cqw rgba(255,255,255,.92)}
 .plate.window .slide > *{position:absolute}
 
 .t5-eyebrow{left:var(--pad-l);top:var(--y-eyebrow);font-size:var(--fs-small);font-weight:640;
   letter-spacing:.16em;text-transform:uppercase;color:var(--ink-eyebrow)}
-.t5-title{left:var(--pad-l);top:var(--y-title);width:88%;max-width:none;
+.t5-title{left:var(--pad-l);top:var(--y-title);width:var(--title-max);max-width:none;
   font-size:var(--fs-h1);line-height:1.05;letter-spacing:-.03em;font-weight:700;
   color:#0A0B0D;text-wrap:initial}
 .t5-sub{left:var(--pad-l);top:var(--y-sub-1);width:74%;white-space:nowrap;
@@ -1306,7 +1321,7 @@ h3{font-size:var(--fs-h4);line-height:1.2;letter-spacing:-.02em;font-weight:650}
     linear-gradient(150deg,#F9FBFE 0%,#FCFDFF 46%,#F6F9FE 100%)}
 .plate.club::before{background:none}
 .plate.club .slide{padding:0}
-.plate.club .ghost{right:4.47%;top:3.04%;font-size:var(--fs-ghost);line-height:1;font-weight:700;
+.plate.club .ghost{right:var(--ghost-right);top:3.04%;font-size:var(--fs-ghost);line-height:1;font-weight:700;
   letter-spacing:-.06em;color:transparent;
   -webkit-text-stroke:.115cqw rgba(255,255,255,.92)}
 .plate.club .slide > *{position:absolute}
@@ -1320,7 +1335,7 @@ h3{font-size:var(--fs-h4);line-height:1.2;letter-spacing:-.02em;font-weight:650}
   transform:scaleX(0);transform-origin:0 50%;
   transition:transform .6s var(--ease-out) 170ms}
 .plate.in .t6-tick{transform:scaleX(1)}
-.t6-title{left:var(--pad-l);top:var(--y-title);width:88%;max-width:none;
+.t6-title{left:var(--pad-l);top:var(--y-title);width:var(--title-max);max-width:none;
   font-size:var(--fs-h1);line-height:1.08;letter-spacing:-.03em;font-weight:700;
   color:#0A0B0D;text-wrap:initial}
 
@@ -1436,7 +1451,7 @@ h3{font-size:var(--fs-h4);line-height:1.2;letter-spacing:-.02em;font-weight:650}
     linear-gradient(150deg,#FAFBFE 0%,#FCFDFF 44%,#F4F8FE 100%)}
 .plate.next::before{background:none}
 .plate.next .slide{padding:0}
-.plate.next .ghost{right:4.47%;top:3.04%;font-size:var(--fs-ghost);line-height:1;font-weight:700;
+.plate.next .ghost{right:var(--ghost-right);top:3.04%;font-size:var(--fs-ghost);line-height:1;font-weight:700;
   letter-spacing:-.06em;color:transparent;
   -webkit-text-stroke:.115cqw rgba(255,255,255,.92)}
 .plate.next .slide > *{position:absolute}
@@ -1456,7 +1471,7 @@ h3{font-size:var(--fs-h4);line-height:1.2;letter-spacing:-.02em;font-weight:650}
   transform:scaleX(0);transform-origin:0 50%;
   transition:transform .6s var(--ease-out) 170ms}
 .plate.in .t7-tick{transform:scaleX(1)}
-.t7-title{left:var(--pad-l);top:var(--y-title);width:88%;max-width:none;z-index:2;
+.t7-title{left:var(--pad-l);top:var(--y-title);width:var(--title-max);max-width:none;z-index:2;
   font-size:var(--fs-h1);line-height:1.08;letter-spacing:-.03em;font-weight:700;
   color:#0A0B0D;text-wrap:initial}
 .t7-sub{left:var(--pad-l);top:var(--y-sub-1);width:70%;z-index:2;
@@ -1942,6 +1957,13 @@ html.booting{overscroll-behavior:none}
 }
 /* хвост ландшафтного режима: правила навигации объявлены ниже по файлу,
    поэтому переопределяем их здесь, а не в блоке рядом с .plate */
+/* стрелка по центру ложится прямо на строку — уводим её к правому краю
+   и на телефоне в портрете тоже */
+@media (max-width:900px) and (orientation:portrait){
+  #rail{display:none}
+  #cue{width:44px;height:44px;left:auto;right:14px;bottom:16px;translate:none}
+  #cue svg{width:19px;height:19px}
+}
 @media (orientation:landscape) and (max-height:600px){
   #rail{display:none}
   /* стрелка уходит в угол: по центру она ложилась на подпись под слайдом */
@@ -1953,6 +1975,38 @@ html.booting{overscroll-behavior:none}
 @media (max-width:900px) and (orientation:portrait){
   .cv-sub,.c3-sub,.t4-sub,.t5-sub,.t7-sub,.stat .v,.stat .k,
   .t4-stat,.t5-lab,.c3-val,.c3-val-row{white-space:normal}
+}
+/* Safari во флекс-колонке умеет растянуть элемент с aspect-ratio: flex-shrink
+   у него работает и по высоте, из-за чего сцена третьего слайда уезжала во
+   весь экран, а иконки съезжали поверх колец. flex:none снимает вопрос —
+   высота считается только от ширины и ни от чего больше. */
+@media (max-width:900px) and (orientation:portrait){
+  .cv-offer,.m2-art,.c3-scene,.c3-bub,.c3-seal,.t4-disc,.t4-dot,
+  .t5-node,.t5-disc,.t5-warn,.t6-card,.t6-tile,.t7-disc,
+  .t4-card,.t5-card,.t6-row,.t7-door{flex:none}
+  /* и сама сцена не должна раздуваться шире разумного */
+  .c3-scene{max-width:340px;width:100%;margin-inline:auto}
+}
+/* В колонке `.slide > *` становятся static, и контейнеры теряют систему
+   координат: их абсолютные потомки (кольца, печать, слои орба, начинка
+   карточки обложки) начинали считаться от всего слайда и разъезжались во
+   весь экран — именно так третий слайд заливал собой телефон. Возвращаем
+   контейнерам position. Селекторы полные: правило `.plate.X .slide > *`
+   специфичнее одиночного класса и иначе перебивает эту правку. */
+@media (max-width:900px) and (orientation:portrait){
+  .plate.contours .slide > .c3-scene,
+  .plate.terms    .slide > .t4-cards,
+  .plate.window   .slide > .t5-cards,
+  .plate.club     .slide > .t6-card,
+  .plate.club     .slide > .t6-rows,
+  .plate.next     .slide > .t7-doors,
+  .plate.momentum .slide .m2-art,
+  .plate.contours .slide > .c3-bub,
+  .plate.cover .cv-offer{position:relative;inset:auto}
+  /* ограничения ширины в cqw писались под координатный кадр: в колонке
+     33cqw — это 119 px, и текст сжимался в узкий столбик */
+  .t6-t,.t5-h,.c3-title,.t4-title,.t5-title,.t6-title,.t7-title{max-width:none}
+  .t5-rule,.t6-tick{width:44px;height:3px}
 }
 </style>
 </head>
