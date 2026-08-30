@@ -106,7 +106,7 @@
         --fs-h3:20px;--fs-h4:18px;--fs-lead:16px;--fs-body:14px;--fs-small:13px;--fs-note:11px}
 }
 *{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth;overflow-y:scroll}
+html{scroll-behavior:smooth;overflow-y:scroll;-webkit-text-size-adjust:100%;text-size-adjust:100%}
 body{font-family:var(--font);color:var(--ink);background:#EEF2FA;
   -webkit-font-smoothing:antialiased;font-optical-sizing:auto;overflow-x:hidden}
 
@@ -1064,7 +1064,7 @@ h3{font-size:var(--fs-h4);line-height:1.2;letter-spacing:-.02em;font-weight:650}
 .plate.window .ghost{right:var(--ghost-right);top:3.04%;font-size:var(--fs-ghost);line-height:1;font-weight:700;
   letter-spacing:-.06em;color:transparent;
   -webkit-text-stroke:.115cqw rgba(255,255,255,.92)}
-.plate.window .slide > *{position:absolute}
+.plate.window .slide > *,.plate.window .t5-strip > .t5-lab{position:absolute}
 
 .t5-eyebrow{left:var(--pad-l);top:var(--y-eyebrow);font-size:var(--fs-small);font-weight:640;
   letter-spacing:.16em;text-transform:uppercase;color:var(--ink-eyebrow)}
@@ -1126,6 +1126,7 @@ h3{font-size:var(--fs-h4);line-height:1.2;letter-spacing:-.02em;font-weight:650}
   12%{opacity:1} 80%{opacity:0;box-shadow:0 0 .6cqw 3cqw rgba(246,120,186,0)}
   100%{opacity:0;box-shadow:0 0 .6cqw 3cqw rgba(246,120,186,0)}}
 
+.t5-strip{display:contents}
 .t5-lab{translate:-50% 0;top:31.42%;white-space:nowrap;z-index:3;
   font-size:var(--fs-body);line-height:1;font-weight:700;letter-spacing:.055em;
   text-transform:uppercase;color:var(--nd-lab)}
@@ -1244,12 +1245,23 @@ h3{font-size:var(--fs-h4);line-height:1.2;letter-spacing:-.02em;font-weight:650}
 
 @media (max-width:900px) and (orientation:portrait){
   .plate.window .slide{position:relative;padding:26px 20px 28px;display:flex;flex-direction:column}
-  .plate.window .slide > *{position:static}
+  .plate.window .slide > *,.plate.window .t5-strip > .t5-lab{position:static}
   .plate.window .ghost,.t5-axis,.t5-node,.t5-drop{display:none}
   .t5-title{margin-top:16px;font-size:var(--fs-h1);width:auto}
   .t5-sub{margin-top:12px;font-size:var(--fs-lead);width:auto;white-space:normal}
-  .t5-lab{translate:none;margin-top:16px;font-size:var(--fs-body)}
-  .t5-gauge{margin-top:14px}
+  .plate.window .slide > .t5-strip{display:flex;position:relative;align-items:center;justify-content:space-between;
+    margin-top:18px;gap:6px;row-gap:8px;flex-wrap:wrap}
+  .t5-strip::before{content:"";position:absolute;left:4px;right:4px;top:50%;height:2px;
+    border-radius:1px;background:linear-gradient(90deg,#3E82FA,#22334F 48%,#E4136E);opacity:.5}
+  .t5-lab{position:relative;translate:none;margin:0;font-size:var(--fs-note);white-space:nowrap;
+    display:inline-flex;align-items:center;gap:5px;padding:6px 8px;border-radius:99px;
+    background:#fff;border:1px solid rgba(20,31,54,.10);box-shadow:0 2px 8px rgba(20,31,54,.06)}
+  .t5-lab::before{content:"";width:7px;height:7px;border-radius:50%;flex:0 0 auto;
+    background:var(--nd-a);box-shadow:0 0 0 2.5px color-mix(in srgb,var(--nd-a) 22%,transparent)}
+  .t5-gauge{margin-top:14px;align-self:flex-start;display:inline-flex;gap:10px;
+    padding:9px 14px;border-radius:12px;background:rgba(242,39,122,.07);
+    border:1px solid rgba(242,39,122,.18)}
+  .t5-gauge svg{width:20px}
   .t5-cards{display:flex;flex-direction:column;gap:10px;height:auto;margin-top:14px}
   .t5-card{padding:14px;gap:14px;border-radius:14px}
   .t5-disc{width:52px}
@@ -1934,7 +1946,7 @@ html.booting{overscroll-behavior:none}
    nowrap выставлен для координатной раскладки 16:9 и здесь только рвёт кадр */
 @media (max-width:900px) and (orientation:portrait){
   .cv-sub,.c3-sub,.t4-sub,.t5-sub,.t7-sub,.stat .v,.stat .k,
-  .t4-stat,.t5-lab,.c3-val,.c3-val-row{white-space:normal}
+  .t4-stat,.c3-val,.c3-val-row{white-space:normal}
 }
 /* Safari во флекс-колонке умеет растянуть элемент с aspect-ratio: flex-shrink
    у него работает и по высоте, из-за чего сцена третьего слайда уезжала во
@@ -2367,9 +2379,9 @@ html.booting{overscroll-behavior:none}
       <i class="t5-rest"></i>
     </div>
 
-    <span class="t5-lab t5-l1" style="--d:740ms">1 сентября</span>
-    <span class="t5-lab t5-l2" style="--d:920ms">До минуты</span>
-    <span class="t5-lab t5-l3" style="--d:1100ms">1 октября</span>
+    <div class="t5-strip"><span class="t5-lab t5-l1" style="--d:740ms">1 сентября</span
+    ><span class="t5-lab t5-l2" style="--d:920ms">До минуты</span
+    ><span class="t5-lab t5-l3" style="--d:1100ms">1 октября</span></div>
     <span class="t5-node t5-n1" style="--d:700ms" aria-hidden="true"><b></b></span>
     <span class="t5-node t5-n2" style="--d:880ms" aria-hidden="true"><b></b></span>
     <span class="t5-node t5-n3" style="--d:1060ms" aria-hidden="true"><i></i><i></i><b></b></span>
