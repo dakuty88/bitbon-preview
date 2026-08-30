@@ -398,10 +398,16 @@ body{font-family:var(--font);color:var(--ink);background:#EEF2FA;
   .plate.cover .slide{position:relative;padding:26px 20px 28px;display:flex;flex-direction:column;gap:18px}
   .cv{position:static!important;width:auto!important;height:auto!important}
   .cv-ghost{display:none}
-  .cv-stats{display:grid;grid-template-columns:1fr;gap:32px;margin-top:20px}
-  .stat{padding:26px 16px 16px}
-  .stat .orb{width:44px;height:44px}
+  .cv-stats{display:grid;grid-template-columns:1fr;gap:12px;margin-top:14px}
+  .stat{display:grid;grid-template-columns:auto 1fr;column-gap:16px;align-items:center;
+    padding:14px 16px;border-radius:14px}
+  .stat .orb{grid-row:1/3;position:static;translate:none;width:46px;height:46px}
+  .stat .v{grid-column:2;align-self:end}
+  .stat .k{grid-column:2;margin-top:3px}
   .cv-offer{aspect-ratio:.84;border-radius:16px;margin-top:8px;filter:none}
+  /* углы спрайта запечены с радиусом 5,25% ширины — клип должен его повторять,
+     иначе сквозь прозрачные углы светит белая плита */
+  .cv-offer .card3d,.cv-offer .card3d::after{border-radius:calc(5.25cqw - 3px)}
   .cv-rule{height:2px;width:70px}
 }
 
@@ -810,8 +816,9 @@ h3{font-size:var(--fs-h4);line-height:1.2;letter-spacing:-.02em;font-weight:650}
      координатной раскладке. В колонке переставляем их через order, чтобы
      шайба стояла над своим блоком, а не отдельной стопкой у края. */
   .c3-scene{width:86%;max-width:320px;margin:18px auto 6px;align-self:center}
-  .c3-bub{width:44px!important;height:44px;margin:22px 0 0;align-self:flex-start;
+  .c3-bub{width:46px!important;height:46px;margin:20px 0 -46px;align-self:flex-start;
     box-shadow:0 0 0 5px var(--soft), 0 6px 16px -5px var(--soft)}
+  .c3-blk .c3-label,.c3-blk .c3-val{padding-left:62px}
   .c3-blk{width:auto!important;margin-top:12px}
   .c3-bub-usdt{order:1}   .c3-b-usdt{order:2}
   .c3-bub-box{order:3}    .c3-b-box{order:4}
@@ -1296,7 +1303,8 @@ h3{font-size:var(--fs-h4);line-height:1.2;letter-spacing:-.02em;font-weight:650}
 .plate.club .ghost{right:var(--ghost-right);top:3.04%;font-size:var(--fs-ghost);line-height:1;font-weight:700;
   letter-spacing:-.06em;color:transparent;
   -webkit-text-stroke:.115cqw rgba(255,255,255,.92)}
-.plate.club .slide > *{position:absolute}
+.t6-hero{display:contents}
+.plate.club .slide > *,.plate.club .t6-hero > *{position:absolute}
 
 .t6-eyebrow{left:var(--pad-l);top:var(--y-eyebrow);font-size:var(--fs-small);font-weight:700;
   letter-spacing:.16em;text-transform:uppercase;color:var(--ink-eyebrow)}
@@ -1393,11 +1401,16 @@ h3{font-size:var(--fs-h4);line-height:1.2;letter-spacing:-.02em;font-weight:650}
 
 @media (max-width:900px) and (orientation:portrait){
   .plate.club .slide{position:relative;padding:26px 20px 28px;display:flex;flex-direction:column}
-  .plate.club .slide > *{position:static}
+  .plate.club .slide > *,.plate.club .t6-hero > .t6-card{position:static}
   .plate.club .ghost,.t6-tick{display:none}
   .t6-title{margin-top:14px;width:auto}
-  .t6-card{width:100%;height:auto;aspect-ratio:544/541;margin-top:16px;border-radius:16px}
-  .t6-brand,.t6-figure,.t6-lede{display:none}
+  .plate.club .slide > .t6-hero{position:relative;display:block;margin-top:16px}
+  .t6-card{width:100%;height:auto;aspect-ratio:544/430;border-radius:16px;
+    background-size:auto 76%,auto,auto;
+    background-position:right bottom,0 0,0 0}
+  .plate.club .t6-hero > .t6-brand{position:absolute;left:18px;top:18px;font-size:var(--fs-small)}
+  .plate.club .t6-hero > .t6-figure{position:absolute;left:18px;top:40px;font-size:var(--fs-figure)}
+  .plate.club .t6-hero > .t6-lede{position:absolute;left:18px;top:100px;width:52%;font-size:var(--fs-body)}
   .t6-rows{height:auto;margin-top:14px;gap:10px}
   .t6-row{padding:12px;gap:12px;border-radius:14px}
   .t6-tile{width:44px;border-radius:12px}
@@ -2481,10 +2494,10 @@ html.booting{overscroll-behavior:none}
     <span class="t6-tick" aria-hidden="true"></span>
     <h2 class="t6-title reveal" data-delay="220ms">Bitbon ×0,3 — ключ к возможностям,<br>которые не сводятся к процентам</h2>
 
-    <div class="t6-card reveal" data-delay="320ms" aria-hidden="true"></div>
+    <div class="t6-hero"><div class="t6-card reveal" data-delay="320ms" aria-hidden="true"></div>
     <div class="t6-brand reveal" data-delay="420ms">Bitbon</div>
     <div class="t6-figure reveal" data-delay="470ms"><i>×</i>0,3</div>
-    <p class="t6-lede reveal" data-delay="540ms">подтверждают членство и возвращаются в том же количестве после стандартного завершения</p>
+    <p class="t6-lede reveal" data-delay="540ms">подтверждают членство и возвращаются в том же количестве после стандартного завершения</p></div>
 
     <div class="t6-rows">
       <div class="t6-row reveal" data-delay="560ms">
