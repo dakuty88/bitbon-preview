@@ -381,9 +381,6 @@ h3{font-size:var(--fs-h4);line-height:1.2;letter-spacing:-.02em;font-weight:650}
 .mini{font-size:var(--fs-small);line-height:1.4;color:var(--ink-3)}
 .foot{margin-top:auto;padding-top:1.9cqw;border-top:1px solid var(--line-soft);
       font-size:var(--fs-note);line-height:1.45;color:var(--ink-3)}
-.num{font-variant-numeric:lining-nums tabular-nums;font-weight:700;letter-spacing:-.045em}
-.big-n{font-size:var(--fs-display);line-height:1}
-.mid-n{font-size:var(--fs-h3);line-height:1}
 /* медленный цветовой дрейф по буквам: палитра шире текста и плавно
    проезжает сквозь глифы туда-обратно. Блика нет — только смена оттенка. */
 .grad-text{
@@ -396,17 +393,8 @@ h3{font-size:var(--fs-h4);line-height:1.2;letter-spacing:-.02em;font-weight:650}
 .plate.in .grad-text{animation:hueDrift 9s var(--ease-in-out) 3.3s infinite alternate}
 @keyframes hueDrift{from{background-position:0% 0} to{background-position:100% 0}}
 
-/* ═══ общее ═══ */
-.tint{background:var(--block);border-radius:1.2cqw;padding:2.1cqw 2.3cqw}
-.tint.blue{background:linear-gradient(150deg,rgba(61,141,255,.13),rgba(61,141,255,.05));
-           border:1px solid rgba(61,141,255,.16)}
-.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:1.6cqw}
 .grow{flex:1;min-height:0;display:flex;flex-direction:column;justify-content:center}
 
-/* импульс внимания: три волны и стоп */
-.pulse{position:relative}
-.pulse > .wave{position:absolute;left:50%;top:50%;width:2.2cqw;height:2.2cqw;translate:-50% -50%;
-  border-radius:50%;border:.16cqw solid var(--accent);opacity:0;pointer-events:none}
 .pulse.in > .wave{animation:wave 2.1s var(--e) 3}
 .pulse.in > .wave:nth-of-type(2){animation-delay:.55s}
 @keyframes wave{0%{transform:scale(.6);opacity:.55}75%{transform:scale(7);opacity:0}100%{opacity:0}}
@@ -653,10 +641,6 @@ h3{font-size:var(--fs-h4);line-height:1.2;letter-spacing:-.02em;font-weight:650}
 /* ═══ глубинная сборка: камера обложки на обычных плитах ═══ */
 .plate.depth .slide{perspective:1500px;perspective-origin:50% 42%}
 .plate.depth .g3{perspective:1300px}
-.rz{opacity:0;transform:translate3d(0,1cqw,-520px) rotateY(8deg);filter:blur(6px);
-  transition:opacity .55s var(--ease-out), transform .9s var(--ease-out),
-             filter .66s var(--ease-out);
-  will-change:transform,opacity,filter}
 .plate.in .rz{opacity:1;transform:none;filter:none}
 /* карточки ложатся на плиту, а не подлетают сбоку */
 .plate.depth .g3 > .rz{transform:translate3d(0,1.3cqw,-400px) rotateX(15deg);filter:blur(3px)}
@@ -1477,15 +1461,10 @@ html.gliding .plate *{animation-play-state:paused!important}
 .r{opacity:0;transform:translate3d(0,1.7cqw,0);
    transition:opacity .66s var(--e),transform .66s var(--e)}
 .plate.in .r{opacity:1;transform:none}
-.bar-fill{transform:scaleY(0);transform-origin:50% 100%;transition:transform 1.1s var(--e)}
 .plate.in .bar-fill{transform:scaleY(1)}
-.mul-fill{transform:scaleX(0);transform-origin:0 50%;transition:transform 1.1s var(--e)}
 .plate.in .mul-fill{transform:scaleX(1)}
-.arc{stroke-dasharray:var(--len);stroke-dashoffset:var(--len);transition:stroke-dashoffset 1.3s var(--e)}
 .plate.in .arc{stroke-dashoffset:var(--off,0)}
 
-/* ═══ столбцы периодов ═══ */
-.bars{display:grid;grid-template-columns:repeat(3,1fr);gap:2.6cqw;height:100%}
 .bar{display:grid;grid-template-rows:1fr auto;gap:1.1cqw;height:100%}
 .bar .plot{position:relative;width:100%}
 .bar .col{position:absolute;left:0;right:0;bottom:0;height:var(--h);
@@ -1495,30 +1474,9 @@ html.gliding .plate *{animation-play-state:paused!important}
 .bar .cap{position:absolute;left:0;bottom:calc(var(--h) + .9cqw)}
 .bar .meta{display:flex;flex-direction:column;gap:.35cqw;padding-top:.9cqw;border-top:1px solid var(--line)}
 
-/* ═══ множитель ═══ */
-.mul{display:flex;flex-direction:column;gap:1.5cqw}
-.mul .row{display:flex;flex-direction:column;gap:.7cqw}
-.mul .head{display:flex;align-items:baseline;justify-content:space-between;gap:1.4cqw}
-.mul .track{position:relative;height:2.7cqw;background:var(--block);border-radius:.6cqw;overflow:hidden}
-.mul .mul-fill{position:absolute;inset:0;border-radius:.6cqw}
-
-/* ═══ привилегии ═══ */
-.perks{display:grid;grid-template-columns:1fr 1fr;gap:0 3cqw}
-.perk{display:grid;grid-template-columns:2.4cqw 1fr;gap:1cqw;padding:1.05cqw 0;border-top:1px solid var(--line-soft)}
 .perk .n{font-size:var(--fs-note);font-weight:660;color:var(--ink-3);padding-top:.25cqw;font-variant-numeric:tabular-nums}
-.perk .t{font-size:var(--fs-body);line-height:1.36;letter-spacing:-.008em}
-.perk.key .t{color:var(--accent-deep);font-weight:600}
-
-/* ═══ ось времени ═══ */
-.axis svg{width:100%;height:5cqw;overflow:visible;display:block}
-.axis .rail{stroke:var(--line);stroke-width:1.5}
 .axis .live{stroke:var(--accent);stroke-width:2.6;stroke-linecap:round}
-.axis .dash{stroke:var(--ink-3);stroke-width:1.5;stroke-dasharray:2 7;stroke-linecap:round;
-  opacity:0;transition:opacity .6s var(--e) .5s}
 .plate.in .axis .dash{opacity:1}
-.axis .knob{fill:#fff;stroke:var(--accent);stroke-width:3}
-.axis .knob.end{stroke:var(--ink)}
-
 /* ═══ навигация ═══ */
 #rail{position:fixed;right:clamp(10px,1.4vw,20px);top:50%;translate:0 -50%;z-index:30;
   display:flex;flex-direction:column;gap:9px;padding:11px 8px;border-radius:99px;
@@ -1626,7 +1584,6 @@ html.gliding .plate *{animation-play-state:paused!important}
   .m2-art,.m2-art i,.m2-link i{animation:none!important;transform:none!important}
   .c3-seal,.c3-seal b,.c3-bub,.c3-bub b::after{animation:none!important;transform:none!important}
   .pillar::after{animation:none!important;opacity:0}
-  .ruleline{transform:none;transition:none}
   .cv-sub b{opacity:1;transform:none;transition:none}
 }
 
@@ -1761,8 +1718,6 @@ html.booting{overscroll-behavior:none}
   .plate{aspect-ratio:auto}
   .slide{padding:28px 22px 30px;gap:16px}
   .ghost{display:none}
-  .g3,.perks,.bars,.split{grid-template-columns:1fr!important;gap:14px}
-  .bars{height:auto}
   .bar{height:auto;grid-template-rows:auto auto}
   .bar .plot{height:92px}
   .bar .cap{bottom:auto;top:0}
@@ -1789,10 +1744,6 @@ html.booting{overscroll-behavior:none}
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
   .plate,.plate.spring,.r{opacity:1;transform:none;transition:none}
-  .bar-fill{transform:scaleY(1);transition:none}
-  .mul-fill{transform:scaleX(1);transition:none}
-  .arc{stroke-dashoffset:var(--off,0);transition:none}
-  .axis .dash{opacity:1;transition:none}
   .pulse.in > .wave{animation:none}
   .cv-offer .pi{opacity:1;transform:none;transition:opacity .2s linear}
   .plate.in .cv-offer .halo,.plate.in .cv-offer .sheen{animation:none}
@@ -2290,37 +2241,6 @@ html.booting{overscroll-behavior:none}
 
     <span class="t5-footrule reveal" data-delay="1500ms" aria-hidden="true"></span>
     <p class="t5-foot reveal" data-delay="1540ms">Условия 35% доступны только в пределах первого лимита и при соблюдении правил гарантированного резервирования.</p>
-  </div>
-</article>
-
-<!-- ══════ 06 · РЕЗЕРВИРОВАНИЕ ══════ -->
-<article class="plate">
-  <div class="ghost">06</div>
-  <div class="slide">
-    <div class="eyebrow r">Гарантированное резервирование</div>
-    <h2 class="r" style="margin-top:1.3cqw">Очередь определяет серверное время, а не намерение</h2>
-    <div class="grow">
-      <div class="axis r" style="margin:1.2cqw 0 1.8cqw">
-        <svg viewBox="0 0 1000 60" preserveAspectRatio="none">
-          <line class="rail" x1="0" y1="34" x2="1000" y2="34"/>
-          <line class="live arc" x1="9" y1="34" x2="330" y2="34" style="--len:321"/>
-          <line class="dash" x1="330" y1="34" x2="670" y2="34"/>
-          <line class="live arc" x1="670" y1="34" x2="991" y2="34" style="--len:321;transition-delay:.55s"/>
-          <circle class="knob" cx="9" cy="34" r="7"/>
-          <circle class="knob end" cx="991" cy="34" r="7"/>
-        </svg>
-      </div>
-      <div class="g3">
-        <div class="r"><div class="eyebrow on">1 сентября 2026</div><h3 style="margin-top:.9cqw">Старт резервирования</h3><p class="body" style="margin-top:.8cqw">USDT и Bitbon по коэффициенту 0,3 одновременно размещены на основном балансе Bit Trade.</p></div>
-        <div class="r pulse"><span class="wave"></span><span class="wave"></span>
-          <div class="eyebrow">Механика приоритета</div><h3 style="margin-top:.9cqw">Фиксация до минуты</h3><p class="body" style="margin-top:.8cqw">Система фиксирует серверные дату и время одновременного наличия двух компонентов. Этот момент формирует очередь.</p></div>
-        <div class="r"><div class="eyebrow" style="color:var(--ink)">1 октября 2026</div><h3 style="margin-top:.9cqw">Открытие контрактов</h3><p class="body" style="margin-top:.8cqw">Если подтверждённый объём не превышает первые 400 000 USDT, за Пользователем резервируются условия 35%.</p></div>
-      </div>
-      <div class="tint blue r" style="margin-top:2cqw;padding:1.6cqw 2.1cqw">
-        <p class="body" style="color:var(--ink);font-size:max(12px,1.42cqw)">Резервирование — это не предварительный интерес и не устное намерение, а подтверждённая готовность: оба компонента уже на балансе.</p>
-      </div>
-    </div>
-    <p class="foot">Условия 35% доступны только в пределах первого лимита и при соблюдении правил гарантированного резервирования.</p>
   </div>
 </article>
 
