@@ -827,7 +827,8 @@ h3{font-size:var(--fs-h4);line-height:1.2;letter-spacing:-.02em;font-weight:650}
   .c3-footrule{order:7}   .c3-foot{order:8}
   .c3-val,.c3-val-row{font-size:var(--fs-h2);margin-top:8px}
   .c3-note{font-size:var(--fs-small);margin-top:10px}
-  .c3-footrule,.c3-foot{display:none}
+  .c3-footrule{margin-top:22px}
+  .c3-foot{margin-top:14px;font-size:var(--fs-note);width:auto}
 }
 
 /* ═══ 04 · условия ═══
@@ -1891,11 +1892,6 @@ html.booting{overscroll-behavior:none}
 #cue:active{transform:translate3d(0,0,0) scale(.94)}
 @media (prefers-reduced-motion:reduce){#cue.on svg,#cue.on::after{animation:none}}
 
-/* ═══ подвал ═══ */
-.legal{width:min(1280px,100%);margin:0 auto;padding:0 clamp(14px,3vw,40px) clamp(48px,7vw,90px)}
-.legal p{font-size:12px;line-height:1.5;color:var(--ink-3);max-width:92ch}
-.legal p + p{margin-top:9px}
-
 /* ═══ адаптив ═══ */
 @media (max-width:900px) and (orientation:portrait){
   .plate{aspect-ratio:auto}
@@ -2646,11 +2642,7 @@ html.booting{overscroll-behavior:none}
 
 </main>
 
-<div class="legal">
-  <p>Порядок участия: активация контракта — до 10 дней после заключения; подготовка и вывод средств после закрытия — до 30 календарных дней. При досрочном закрытии вся выгода по USDT и клубное ×5-вознаграждение аннулируются, удерживается 15% основной суммы USDT, Bitbon возвращаются без штрафа. Полный порядок открытия и закрытия, перенос лимитов и сценарии раунда B раскрыты в Bitbon Business Pack Investor Article.</p>
-  <p>Материал подготовлен на основании утверждённого документа Bitbon Business Pack Investor Article и не заменяет условия конкретного контракта. Участие доступно исключительно Пользователям Системы Bitbon с активной учётной записью. Организатор раунда A — Bit Trade.</p>
-  <p>Перед публичным использованием формулировки необходимо проверить на соответствие требованиям применимой юрисдикции.</p>
-</div>
+
 
 <script>
 (function(){
