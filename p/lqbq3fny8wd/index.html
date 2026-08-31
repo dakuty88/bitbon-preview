@@ -160,34 +160,14 @@ body{font-family:var(--font);color:var(--ink);background:#EEF2FA;
   letter-spacing:-.07em;color:transparent;-webkit-text-stroke:.09cqw rgba(10,11,13,.075);
   font-variant-numeric:lining-nums tabular-nums;pointer-events:none;user-select:none}
 
-/* ═══ градиентное полотно (декор, ничего не кодирует) ═══ */
-.aurora{position:relative;overflow:hidden;border-radius:1.7cqw;isolation:isolate;
+/* ═══ градиентное полотно (декор{position:relative;overflow:hidden;border-radius:1.7cqw;isolation:isolate;
   background:
     radial-gradient(76% 58% at 18% 16%, rgba(156,200,255,.98), transparent 62%),
     radial-gradient(66% 52% at 84% 24%, rgba(240,164,198,.90), transparent 62%),
     radial-gradient(96% 74% at 46% 100%, rgba(44,58,148,.98), transparent 68%),
     radial-gradient(56% 48% at 92% 86%, rgba(122,88,206,.88), transparent 64%),
     linear-gradient(166deg,#D3E2FB 0%,#98ACEF 36%,#6E5FC2 68%,#2B2E6B 100%);}
-.aurora::before{content:"";position:absolute;inset:0;
-  background:radial-gradient(50% 32% at 70% 14%, rgba(255,228,238,.6), transparent 70%);}
-.aurora::after{content:"";position:absolute;inset:0;
-  background:linear-gradient(180deg,transparent 42%,rgba(16,20,58,.34));}
-/* вуаль сверху там, где по полотну идёт светлый текст */
-.aurora.scrim::after{background:linear-gradient(180deg,rgba(14,18,54,.5) 0%,rgba(14,18,54,.18) 40%,rgba(14,18,54,.38) 100%);}
-.on-dark .eyebrow{color:rgba(255,255,255,.8)}
-.aurora > *{position:relative;z-index:2}
-.on-dark{color:#fff}
-.on-dark .eyebrow{color:rgba(255,255,255,.72)}
-.on-dark .lede,.on-dark .body{color:rgba(255,255,255,.9)}
-
-/* стеклянная мини-карточка поверх полотна */
-.glass{background:rgba(255,255,255,.76);
-  -webkit-backdrop-filter:blur(16px) saturate(180%);backdrop-filter:blur(16px) saturate(180%);
-  border:1px solid rgba(255,255,255,.9);border-radius:1cqw;padding:1.1cqw 1.35cqw;
-  box-shadow:0 12px 32px -16px rgba(18,28,74,.5);}
-.glass .k{font-size:var(--fs-note);letter-spacing:.1em;text-transform:uppercase;color:#5B6470;font-weight:640}
-.glass .v{font-size:var(--fs-h4);line-height:1;font-weight:700;letter-spacing:-.04em;color:#0A0B0D;margin-top:.5cqw;
-  font-variant-numeric:lining-nums tabular-nums}
+/* вуаль сверху там{background:linear-gradient(180deg,rgba(14,18,54,.5) 0%,rgba(14,18,54,.18) 40%,rgba(14,18,54,.38) 100%);}
 
 /* ═══ обложка ═══
    Раскладка снята с утверждённого макета: плита 1610×887,
@@ -408,8 +388,7 @@ body{font-family:var(--font);color:var(--ink);background:#EEF2FA;
   /* углы спрайта запечены с радиусом 5,25% ширины — клип должен его повторять,
      иначе сквозь прозрачные углы светит белая плита */
   .cv-offer .card3d,.cv-offer .card3d::after{border-radius:calc(5.25cqw - 3px)}
-  .cv-rule{height:2px;width:70px}
-}
+  .cv-rule{height:2px;width:70px}}
 
 /* ═══ типографика ═══ */
 .eyebrow{font-size:var(--fs-small);font-weight:640;letter-spacing:.17em;text-transform:uppercase;color:var(--ink-3)}
@@ -418,7 +397,6 @@ h2{font-size:var(--fs-h1);line-height:1.06;letter-spacing:-.034em;font-weight:69
 h3{font-size:var(--fs-h4);line-height:1.2;letter-spacing:-.02em;font-weight:650}
 .lede{font-size:var(--fs-lead);line-height:1.45;letter-spacing:-.011em;color:var(--ink-2);max-width:56ch}
 .body{font-size:var(--fs-body);line-height:1.5;color:var(--ink-2);letter-spacing:-.005em}
-.mini{font-size:var(--fs-small);line-height:1.4;color:var(--ink-3)}
 .foot{margin-top:auto;padding-top:1.9cqw;border-top:1px solid var(--line-soft);
       font-size:var(--fs-note);line-height:1.45;color:var(--ink-3)}
 /* медленный цветовой дрейф по буквам: палитра шире текста и плавно
@@ -434,11 +412,6 @@ h3{font-size:var(--fs-h4);line-height:1.2;letter-spacing:-.02em;font-weight:650}
 @keyframes hueDrift{from{background-position:0% 0} to{background-position:100% 0}}
 
 .grow{flex:1;min-height:0;display:flex;flex-direction:column;justify-content:center}
-
-.pulse.in > .wave{animation:wave 2.1s var(--e) 3}
-.pulse.in > .wave:nth-of-type(2){animation-delay:.55s}
-@keyframes wave{0%{transform:scale(.6);opacity:.55}75%{transform:scale(7);opacity:0}100%{opacity:0}}
-
 /* ═══ 02 · момент ═══ повторяет утверждённый макет:
    шапка-колонтитул, трёхстрочный заголовок с градиентом на акценте,
    стеклянный диск справа и три опоры со сквозной связью. */
@@ -648,13 +621,7 @@ h3{font-size:var(--fs-h4);line-height:1.2;letter-spacing:-.02em;font-weight:650}
 
 /* ═══ глубинная сборка: камера обложки на обычных плитах ═══ */
 .plate.depth .slide{perspective:1500px;perspective-origin:50% 42%}
-.plate.depth .g3{perspective:1300px}
-.plate.in .rz{opacity:1;transform:none;filter:none}
-/* карточки ложатся на плиту, а не подлетают сбоку */
-.plate.depth .g3 > .rz{transform:translate3d(0,1.3cqw,-400px) rotateX(15deg);filter:blur(3px)}
-.plate.in .g3 > .rz{transform:none;filter:none}
-
-.plate.settled .rz{will-change:auto;filter:none}
+/* карточки ложатся на плиту{transform:translate3d(0,1.3cqw,-400px) rotateX(15deg);filter:blur(3px)}
 
 /* ═══ 03 · три контура ═══
    Раскладка снята с референса по пикселям: кадр 1672×941, все координаты
@@ -828,8 +795,7 @@ h3{font-size:var(--fs-h4);line-height:1.2;letter-spacing:-.02em;font-weight:650}
   .c3-val,.c3-val-row{font-size:var(--fs-h2);margin-top:8px}
   .c3-note{font-size:var(--fs-small);margin-top:10px}
   .c3-footrule{margin-top:22px}
-  .c3-foot{margin-top:14px;font-size:var(--fs-note);width:auto}
-}
+  .c3-foot{margin-top:14px;font-size:var(--fs-note);width:auto}}
 
 /* ═══ 04 · условия ═══
    Раскладка снята с референса по пикселям: кадр 1672×941, координаты
@@ -1044,15 +1010,13 @@ h3{font-size:var(--fs-h4);line-height:1.2;letter-spacing:-.02em;font-weight:650}
   .t4-pct{font-size:var(--fs-display)} .t4-cap{font-size:var(--fs-body);margin-top:6px}
   .t4-when{font-size:var(--fs-note);margin-top:8px;padding:5px 10px;border-radius:8px}
   .t4-footrule{margin-top:22px;height:1px}
-  .t4-foot{margin-top:14px;font-size:var(--fs-note);width:auto}
-}
+  .t4-foot{margin-top:14px;font-size:var(--fs-note);width:auto}}
 @media (prefers-reduced-motion:reduce){
   .t4-chip,.t4-dot,.t4-when{opacity:1;transform:none;transition:none}
   .t4-card::after{transform:scaleX(1);transition:none}
   .t4-track .t4-line{stroke-dashoffset:0;transition:none}
   .t4-track .t4-cn{transform:none;transition:none}
-  .t4-track .t4-spark,.t4-disc b::after{animation:none!important;opacity:0}
-}
+  .t4-track .t4-spark,.t4-disc b::after{animation:none!important;opacity:0}}
 
 /* ═══ 05 · время и приоритет ═══
    Раскладка снята с референса по пикселям: кадр 1672×941, координаты
@@ -1289,14 +1253,12 @@ h3{font-size:var(--fs-h4);line-height:1.2;letter-spacing:-.02em;font-weight:650}
   .t5-p{font-size:var(--fs-small);margin-top:10px}
   .t5-note{height:auto;margin-top:16px;padding:14px;gap:12px;border-radius:14px}
   .t5-warn{width:38px} .t5-note p{font-size:var(--fs-lead)}
-  .t5-footrule{margin-top:20px} .t5-foot{margin-top:12px;font-size:var(--fs-note);width:auto}
-}
+  .t5-footrule{margin-top:20px} .t5-foot{margin-top:12px;font-size:var(--fs-note);width:auto}}
 @media (prefers-reduced-motion:reduce){
   .t5-node,.t5-lab,.t5-drop,.t5-gauge{opacity:1;transform:none;transition:none}
   .t5-card::after,.t5-rule{transform:scaleX(1);transition:none}
   .t5-bar,.t5-glow,.t5-rest{transform:none;transition:none}
-  .t5-rest::before,.t5-note::after,.t5-disc b::after,.t5-n3 i{animation:none!important;opacity:0}
-}
+  .t5-rest::before,.t5-note::after,.t5-disc b::after,.t5-n3 i{animation:none!important;opacity:0}}
 
 /* ═══ 06 · членство ═══
    Раскладка снята с референса по пикселям: кадр 1672×941. Единственный растр —
@@ -1429,12 +1391,10 @@ h3{font-size:var(--fs-h4);line-height:1.2;letter-spacing:-.02em;font-weight:650}
   .t6-tile{width:44px;border-radius:12px}
   .t6-footrule{margin-top:20px}
   .t6-info{display:none}
-  .t6-foot{margin-top:12px;width:auto}
-}
+  .t6-foot{margin-top:12px;width:auto}}
 @media (prefers-reduced-motion:reduce){
   .t6-tick{transform:scaleX(1);transition:none}
-  .t6-card::after,.t6-row.on::after{animation:none!important;opacity:0}
-}
+  .t6-card::after,.t6-row.on::after{animation:none!important;opacity:0}}
 
 /* ═══ 07 · следующий шаг ═══
    Раскладка снята с референса по пикселям: кадр 1672×941. Растра нет вовсе:
@@ -1549,12 +1509,10 @@ h3{font-size:var(--fs-h4);line-height:1.2;letter-spacing:-.02em;font-weight:650}
   .t7-line{width:100%;margin-top:14px}
   .t7-footrule{margin-top:20px}
   .t7-info{display:none}
-  .t7-foot{margin-top:12px;width:auto}
-}
+  .t7-foot{margin-top:12px;width:auto}}
 @media (prefers-reduced-motion:reduce){
   .t7-tick,.t7-line{transform:scaleX(1);transition:none}
-  .t7-flow .st,.t7-flow .tip{animation:none!important}
-}
+  .t7-flow .st,.t7-flow .tip{animation:none!important}}
 
 /* ── сборка пятого слайда ──
    Лента прочерчивается слева направо, за её краем по очереди зажигаются
@@ -1603,8 +1561,7 @@ h3{font-size:var(--fs-h4);line-height:1.2;letter-spacing:-.02em;font-weight:650}
 
 @media (prefers-reduced-motion:reduce){
   .plate.contours .c3-seal,.plate.contours .c3-wires path,
-  .plate.contours .c3-wires circle{opacity:1;transform:none;stroke-dashoffset:0;transition:none}
-}
+  .plate.contours .c3-wires circle{opacity:1;transform:none;stroke-dashoffset:0;transition:none}}
 
 /* ═══ проявление ═══
    Плита прилетает снизу и отпруживает, блоки садятся в неё следом —
@@ -1624,26 +1581,9 @@ html.gliding .plate *{animation-play-state:paused!important}
   transition:opacity .42s var(--ease-out), transform .62s var(--spring-block)}
 .plate.in .reveal{opacity:1;transform:none}
 
-/* ═══ сборка ═══ */
-.r{opacity:0;transform:translate3d(0,1.7cqw,0);
-   transition:opacity .66s var(--e),transform .66s var(--e)}
-.plate.in .r{opacity:1;transform:none}
-.plate.in .bar-fill{transform:scaleY(1)}
-.plate.in .mul-fill{transform:scaleX(1)}
-.plate.in .arc{stroke-dashoffset:var(--off,0)}
-
 .bar{display:grid;grid-template-rows:1fr auto;gap:1.1cqw;height:100%}
-.bar .plot{position:relative;width:100%}
-.bar .col{position:absolute;left:0;right:0;bottom:0;height:var(--h);
-  border-radius:.8cqw .8cqw 0 0;overflow:hidden;
-  box-shadow:0 18px 34px -18px rgba(30,60,140,.45)}
-.bar .bar-fill{position:absolute;inset:0}
 .bar .cap{position:absolute;left:0;bottom:calc(var(--h) + .9cqw)}
-.bar .meta{display:flex;flex-direction:column;gap:.35cqw;padding-top:.9cqw;border-top:1px solid var(--line)}
-
-.perk .n{font-size:var(--fs-note);font-weight:660;color:var(--ink-3);padding-top:.25cqw;font-variant-numeric:tabular-nums}
 .axis .live{stroke:var(--accent);stroke-width:2.6;stroke-linecap:round}
-.plate.in .axis .dash{opacity:1}
 /* ═══ навигация ═══ */
 #rail{position:fixed;right:clamp(10px,1.4vw,20px);top:50%;translate:0 -50%;z-index:30;
   display:flex;flex-direction:column;gap:9px;padding:11px 8px;border-radius:99px;
@@ -1656,8 +1596,7 @@ html.gliding .plate *{animation-play-state:paused!important}
   background:linear-gradient(90deg,#2F7BEE,#6E5FC2 60%,#E4677C)}
 @supports (animation-timeline:scroll()){
   #bar{animation:sx linear;animation-timeline:scroll()}
-  @keyframes sx{to{transform:scaleX(1)}}
-}
+  @keyframes sx{to{transform:scaleX(1)}}}
 
 /* ═══════════ хореография сборки обложки: 3 секунды по тактам ═══════════
    0,00 плита           0,15 надзаголовок (трекинг оседает)
@@ -1745,14 +1684,13 @@ html.gliding .plate *{animation-play-state:paused!important}
   .plate.cover .stat,.plate.cover .stat .orb,.plate.cover .cv-offer{opacity:1;transform:none;filter:none;transition:none}
   .plate.cover .cv-rule,.plate.cover .tilt{transform:none;transition:none}
   .cv-title .ln,.cv-claim .ln{opacity:1;transform:none;filter:none;transition:none}
-  .reveal,.rz,.plate.depth .g3 > .rz,.plate.depth .m2-cards > .rz,
+  .reveal,
   .m2-art i,.m2-link b{opacity:1;transform:none;filter:none;transition:none}
   .m2-link::before{scale:1 1;transition:none}
   .m2-art,.m2-art i,.m2-link i{animation:none!important;transform:none!important}
   .c3-seal,.c3-seal b,.c3-bub,.c3-bub b::after{animation:none!important;transform:none!important}
   .pillar::after{animation:none!important;opacity:0}
-  .cv-sub b{opacity:1;transform:none;transition:none}
-}
+  .cv-sub b{opacity:1;transform:none;transition:none}}
 
 /* ═══ киношный вход ═══
    Тёмное поле с маркой держится 1,5 с, затем «камера» проходит сквозь него:
@@ -1809,8 +1747,7 @@ html.booting{overscroll-behavior:none}
 @keyframes btnCall{0%{opacity:0;transform:scale(.96)} 26%{opacity:.85} 100%{opacity:0;transform:scale(1.42)}}
 @media (hover:hover) and (pointer:fine){
   #startBtn:hover{box-shadow:0 16px 40px -12px rgba(10,16,50,.85), 0 2px 8px rgba(10,16,50,.4)}
-  #startBtn:hover .arw{transform:translateX(5px)}
-}
+  #startBtn:hover .arw{transform:translateX(5px)}}
 #startBtn:active{transform:translate3d(0,14px,0) scale(.975)}
 /* Кнопка не улетает: её белая заливка и превращается в поле. Гаснет только
    надпись со стрелкой, сама плашка остаётся под растущим диском. */
@@ -1862,17 +1799,12 @@ html.booting{overscroll-behavior:none}
   #intro .rot{display:grid;justify-items:center;gap:1.1em;text-align:center;
     position:absolute;left:50%;bottom:27%;translate:-50% 0;width:84vw}
   #intro .rot-alt{display:inline-block;position:absolute;left:50%;bottom:12%;translate:-50% 0}
-  #intro .bar{bottom:6%}
-}
+  #intro .bar{bottom:6%}}
 @media (prefers-reduced-motion:reduce){#intro .rot-ph{animation:none;transform:rotate(-90deg)}}
 
 /* ═══ плёнка сборки ═══
    Ложится ровно на плиту обложки и живёт до своего последнего кадра,
    потом уступает живому слайду перекрёстным растворением. */
-#film{position:absolute;inset:0;z-index:6;border-radius:inherit;overflow:hidden;
-  pointer-events:none;opacity:1;transition:opacity .34s var(--ease-out)}
-#film.out{opacity:0}
-#filmVid{width:100%;height:100%;object-fit:cover;display:block}
 
 /* ═══ приглашение спуститься ниже ═══
    Живёт на каждом слайде кроме последнего и ведёт к следующему.
@@ -1902,8 +1834,7 @@ html.booting{overscroll-behavior:none}
   100%{opacity:0;transform:scale(1.8)}}
 @media (hover:hover) and (pointer:fine){
   #cue.on:hover{transform:translate3d(0,-3px,0);
-    box-shadow:0 1px 2px rgba(12,20,48,.18), 0 20px 40px -12px rgba(12,20,48,.58)}
-}
+    box-shadow:0 1px 2px rgba(12,20,48,.18), 0 20px 40px -12px rgba(12,20,48,.58)}}
 #cue:active{transform:translate3d(0,0,0) scale(.94)}
 @media (prefers-reduced-motion:reduce){#cue.on svg,#cue.on::after{animation:none}}
 
@@ -1937,8 +1868,7 @@ html.booting{overscroll-behavior:none}
 }
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
-  .plate,.plate.spring,.r{opacity:1;transform:none;transition:none}
-  .pulse.in > .wave{animation:none}
+  .plate,.plate.spring{opacity:1;transform:none;transition:none}
   .cv-offer .pi{opacity:1;transform:none;transition:opacity .2s linear}
   .plate.in .cv-offer .halo,.plate.in .cv-offer .sheen{animation:none}
   .cv-offer .sheen{display:none}
@@ -1946,11 +1876,9 @@ html.booting{overscroll-behavior:none}
   .plate.in .cv-offer .pt-hero .n{animation:none}
   .cv-offer .card3d{transform:none!important}
   .plate.in .grad-text{animation:none}
-  #bar{animation:none}
-}
+  #bar{animation:none}}
 @media (prefers-reduced-transparency:reduce){
-  #rail,.glass{background:#fff;-webkit-backdrop-filter:none;backdrop-filter:none}
-}
+  #rail{background:#fff;-webkit-backdrop-filter:none;backdrop-filter:none}}
 
 /* ═══ облегчение для телефонов и встроенных браузеров ═══
    Просадка во встроенном браузере Telegram (WKWebView) идёт не от числа
@@ -2015,8 +1943,7 @@ html.booting{overscroll-behavior:none}
   #rail{display:none}
   /* стрелка уходит в угол: по центру она ложилась на подпись под слайдом */
   #cue{width:38px;height:38px;left:auto;right:12px;bottom:10px;translate:none}
-  #cue svg{width:17px;height:17px}
-}
+  #cue svg{width:17px;height:17px}}
 /* в портретной колонке однострочные тексты обязаны переноситься:
    nowrap выставлен для координатной раскладки 16:9 и здесь только рвёт кадр */
 @media (max-width:900px) and (orientation:portrait){
@@ -2054,8 +1981,7 @@ html.booting{overscroll-behavior:none}
      33cqw — это 119 px, и текст сжимался в узкий столбик */
   .t6-t,.t5-h,.c3-title,.t4-title,.t5-title,.t6-title,.t7-title{max-width:none}
   .t5-rule,.t6-tick{width:44px;height:3px}
-}
-</style>
+}</style>
 </head>
 <body>
 <div id="intro" aria-hidden="true">
@@ -2078,10 +2004,6 @@ html.booting{overscroll-behavior:none}
 </div>
 <span id="fill" aria-hidden="true"></span>
 <div class="air"></div>
-<!-- плёнка сборки обложки: включается ?film=1 -->
-<div id="film" hidden aria-hidden="true">
-  <video id="filmVid" src="assets/intro-cover.mp4" muted playsinline preload="auto"></video>
-</div>
 <button id="cue" type="button" aria-label="К следующему слайду">
   <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v13M6 12.5l6 6 6-6"/></svg>
 </button>
@@ -2711,18 +2633,6 @@ html.booting{overscroll-behavior:none}
 (function(){
 'use strict';
 
-/* ── НАСТРОЙКА: ссылка CTA с меткой источника ──
-   Кнопка живёт на финальном слайде. Пока её в вёрстке нет, проводка молчит:
-   раньше здесь был безусловный доступ к #cta, и после правки финального
-   слайда скрипт падал на этой строке — вместе с ним не строилась рейка
-   и не вешался обработчик «Начать». */
-const CTA_URL = 'https://bitbon.space/business-pack/investor-article'
-              + '?utm_source=partner&utm_medium=deck&utm_campaign=bbp_round_a&ref=PARTNER_ID';
-const ctaLink = document.getElementById('cta');
-if(ctaLink) ctaLink.href = CTA_URL;
-const ctaNote = document.getElementById('cta-note');
-if(ctaNote) ctaNote.textContent = 'Метка источника: ref=PARTNER_ID, подставить перед выпуском';
-
 const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const plates  = [...document.querySelectorAll('.plate')];
 const NBSP    = ' ';
@@ -2764,7 +2674,7 @@ const io = new IntersectionObserver(es=>{
 }, {threshold:.2, rootMargin:'0px 0px -6% 0px'});
 
 plates.forEach(p=>{
-  p.querySelectorAll('.r,.rz,.reveal').forEach((el,i)=>{
+  p.querySelectorAll('.reveal').forEach((el,i)=>{
     // data-delay задаёт задержку вручную там, где важна очерёдность сборки
     el.style.transitionDelay = el.dataset.delay || (Math.min(100 + i*70, 660) + 'ms');
   });
@@ -2925,16 +2835,6 @@ if(intro && !reduced){
      высаживает зрителя посреди колоды вместо обложки */
   if('scrollRestoration' in history) history.scrollRestoration = 'manual';
   scrollTo({top:0, behavior:'instant'});
-  /* Плёнка вместо кодовой сборки обложки. Включаем ?film=1.
-     Запуск идёт из обработчика клика — это жест пользователя, поэтому
-     автовоспроизведение не блокируется ни в одном браузере. */
-  const film = document.getElementById('film');
-  const useFilm = film && new URLSearchParams(location.search).has('film');
-  if(useFilm){
-    plates[0].appendChild(film);
-    film.hidden = false;
-  }
-
   const btnEl = document.getElementById('startBtn');
   const enter = (src)=>{
     if(intro.classList.contains('done')) return;
@@ -2961,27 +2861,9 @@ if(intro && !reduced){
       setTimeout(()=> fill.classList.add('out'), 800);
       setTimeout(()=>{ fill.remove(); }, 1540);
     }
-    if(useFilm){
-      const v = document.getElementById('filmVid');
-      /* последний кадр плёнки держим, а живой слайд подводим под неё
-         и только потом растворяем плёнку — стык не проваливается в пустоту */
-      const handoff = ()=>{
-        v.pause();
-        plates[0].classList.add('in');
-        setTimeout(()=> film.classList.add('out'), 60);
-        setTimeout(()=> film.remove(), 460);
-        plates.forEach(pl=> io.observe(pl));
-      };
-      v.addEventListener('ended', handoff, {once:true});
-      /* страховка: если плёнка не доиграет (сеть, кодек), отдаём слайду код */
-      const guard = setTimeout(handoff, 6000);
-      v.addEventListener('ended', ()=> clearTimeout(guard), {once:true});
-      v.play().catch(()=>{ clearTimeout(guard); film.remove(); startDeck(); });
-    }else{
-      /* слайд заводится ровно тогда, когда белое накрыло экран: он собирается
-         за заливкой и проявляется из неё, а не подставляется готовым */
-      setTimeout(startDeck, 720);
-    }
+    /* слайд заводится ровно тогда, когда белое накрыло экран целиком:
+       он собирается за заливкой и проявляется из неё, а не подставляется готовым */
+    setTimeout(startDeck, 720);
     setTimeout(()=> intro.remove(), 760);
     setTimeout(()=> window.__syncCue && window.__syncCue(), 2600);
   };
