@@ -1941,6 +1941,57 @@ html.booting{overscroll-behavior:none}
 @media (prefers-reduced-transparency:reduce){
   #rail,.glass{background:#fff;-webkit-backdrop-filter:none;backdrop-filter:none}
 }
+
+/* ═══ облегчение для телефонов и встроенных браузеров ═══
+   Просадка во встроенном браузере Telegram (WKWebView) идёт не от числа
+   анимаций — бесконечные петли и без того гасятся у невидимых плит, а
+   пружина наклона обложки живёт только при мыши. Дорого стоят два приёма:
+
+   1. backdrop-filter. Каждый кадр прокрутки движок заново размывает то,
+      что под стеклом, — четыре группы элементов, по десятку копий каждая.
+      Под всеми ними уже лежит свой белый градиент, поэтому размытие снимаем
+      и лишь добавляем непрозрачности, чтобы стекло не поплыло.
+   2. filter:blur внутри бесконечных анимаций. Блик по стеклу переразмывает
+      слой каждый кадр; таких бликов на деке одиннадцать. Плюс анимация
+      box-shadow у предупреждающих кругов — она перекрашивает область
+      вокруг элемента, а не композитится.
+
+   Что остаётся живым: дыхание кадра Web 4.0, импульс из портала и искры —
+   это transform и opacity, они уходят на композитор и ничего не стоят. */
+@media (pointer:coarse){
+  .glass,.stat,.pillar,.cv-offer .pt-1,.cv-offer .pt-2{
+    -webkit-backdrop-filter:none;backdrop-filter:none}
+  .glass{background:rgba(255,255,255,.90)}
+  .stat{background:linear-gradient(158deg,#fff,rgba(255,255,255,.94))}
+  .pillar{background:linear-gradient(157deg,rgba(255,255,255,.97),rgba(255,255,255,.86))}
+  .cv-offer .pt-1,.cv-offer .pt-2{
+    background:linear-gradient(158deg,rgba(255,255,255,.82),rgba(255,255,255,.62))}
+
+  .m2-gleam,
+  .c3-bub b::after,.t4-disc b::after,.t5-disc b::after,
+  .t5-note::after,.t6-card::after,
+  .t4-track .t4-spark,.t5-rest::before,
+  .c3-seal b,.t5-node i{
+    animation:none!important;opacity:0!important}
+
+  /* Обложка — первое, что видит человек, и там же две самые дорогие петли.
+     Бегущий блик по ленте меняет stroke-dashoffset: SVG не композитится,
+     слой перерисовывается каждый кадр. Пульсации карточки анимируют
+     box-shadow во всю её площадь — то же самое. Сама светящаяся кривая
+     запечена в спрайте карточки, поэтому кадр не пустеет. */
+  .cv-offer .flow,.cv-offer .rip,.cv-offer .drift{
+    animation:none!important;opacity:0!important}
+
+  /* Главная причина рывков именно при открытии: расфокус на подлёте.
+     Семь слоёв — четыре строки заголовка и три карточки — переходят с
+     blur(5–7px) в ноль, и каждый кадр движок переразмывает каждый из них,
+     да ещё под поворотом в перспективе. Полёт и проявление оставляем:
+     transform и opacity уходят на композитор. Список длительностей
+     сопоставляется по порядку, поэтому opacity и transform сохраняют свои. */
+  .cv-title .ln,.cv-claim .ln,.plate.cover .stat{
+    filter:none;transition-property:opacity,transform;
+    will-change:transform,opacity}
+}
 /* хвост ландшафтного режима: правила навигации объявлены ниже по файлу,
    поэтому переопределяем их здесь, а не в блоке рядом с .plate */
 /* стрелка по центру ложится прямо на строку — уводим её к правому краю
