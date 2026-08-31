@@ -1901,40 +1901,60 @@ html.booting{overscroll-behavior:none}
 
    Что остаётся живым: дыхание кадра Web 4.0, импульс из портала и искры —
    это transform и opacity, они уходят на композитор и ничего не стоят. */
-@media (pointer:coarse){
-  .glass,.stat,.pillar,.cv-offer .pt-1,.cv-offer .pt-2{
-    -webkit-backdrop-filter:none;backdrop-filter:none}
-  .glass{background:rgba(255,255,255,.90)}
-  .stat{background:linear-gradient(158deg,#fff,rgba(255,255,255,.94))}
-  .pillar{background:linear-gradient(157deg,rgba(255,255,255,.97),rgba(255,255,255,.86))}
-  .cv-offer .pt-1,.cv-offer .pt-2{
-    background:linear-gradient(158deg,rgba(255,255,255,.82),rgba(255,255,255,.62))}
+/* ═══ облегчённый режим ═══
+   Включается классом .cheap на <html>. Класс ставит скрипт: сразу — на
+   устройствах с касанием, и по факту — если замер кадров в первые секунды
+   показал, что движок не держит темп (Firefox, слабая машина, старый Android).
+   Снимаем ровно то, что дорого в перерисовке, а не в композиции. */
 
-  .m2-gleam,
-  .c3-bub b::after,.t4-disc b::after,.t5-disc b::after,
-  .t5-note::after,.t6-card::after,
-  .t4-track .t4-spark,.t5-rest::before,
-  .c3-seal b,.t5-node i{
-    animation:none!important;opacity:0!important}
+/* 1. backdrop-filter. Каждый кадр прокрутки движок заново размывает то, что
+      под стеклом. Под всеми этими элементами уже лежит свой белый градиент,
+      поэтому размытие снимаем и лишь добавляем непрозрачности. */
+html.cheap .glass,
+html.cheap .stat,
+html.cheap .pillar,
+html.cheap .cv-offer .pt-1,
+html.cheap .cv-offer .pt-2{-webkit-backdrop-filter:none;backdrop-filter:none}
+html.cheap .glass{background:rgba(255,255,255,.90)}
+html.cheap .stat{background:linear-gradient(158deg,#fff,rgba(255,255,255,.94))}
+html.cheap .pillar{background:linear-gradient(157deg,rgba(255,255,255,.97),rgba(255,255,255,.86))}
+html.cheap .cv-offer .pt-1,
+html.cheap .cv-offer .pt-2{background:linear-gradient(158deg,rgba(255,255,255,.82),rgba(255,255,255,.62))}
 
-  /* Обложка — первое, что видит человек, и там же две самые дорогие петли.
-     Бегущий блик по ленте меняет stroke-dashoffset: SVG не композитится,
-     слой перерисовывается каждый кадр. Пульсации карточки анимируют
-     box-shadow во всю её площадь — то же самое. Сама светящаяся кривая
-     запечена в спрайте карточки, поэтому кадр не пустеет. */
-  .cv-offer .flow,.cv-offer .rip,.cv-offer .drift{
-    animation:none!important;opacity:0!important}
+/* 2. filter:blur внутри бесконечных петель. Блик по стеклу переразмывает слой
+      каждый кадр; таких бликов на деке одиннадцать. Плюс анимация box-shadow
+      у предупреждающих кругов — она перекрашивает область, а не композитится. */
+html.cheap .m2-gleam,
+html.cheap .c3-bub b::after,
+html.cheap .t4-disc b::after,
+html.cheap .t5-disc b::after,
+html.cheap .t5-note::after,
+html.cheap .t6-card::after,
+html.cheap .t4-track .t4-spark,
+html.cheap .t5-rest::before,
+html.cheap .c3-seal b,
+html.cheap .t5-node i{animation:none!important;opacity:0!important}
 
-  /* Главная причина рывков именно при открытии: расфокус на подлёте.
-     Семь слоёв — четыре строки заголовка и три карточки — переходят с
-     blur(5–7px) в ноль, и каждый кадр движок переразмывает каждый из них,
-     да ещё под поворотом в перспективе. Полёт и проявление оставляем:
-     transform и opacity уходят на композитор. Список длительностей
-     сопоставляется по порядку, поэтому opacity и transform сохраняют свои. */
-  .cv-title .ln,.cv-claim .ln,.plate.cover .stat{
-    filter:none;transition-property:opacity,transform;
-    will-change:transform,opacity}
-}
+/* 3. Обложка — первое, что видит человек, и там же две самые дорогие петли.
+      Бегущий блик по ленте меняет stroke-dashoffset: SVG не композитится, слой
+      перерисовывается каждый кадр. Пульсации карточки анимируют box-shadow во
+      всю её площадь — то же самое. Сама светящаяся кривая запечена в спрайте
+      карточки, поэтому кадр не пустеет. */
+html.cheap .cv-offer .flow,
+html.cheap .cv-offer .rip,
+html.cheap .cv-offer .drift{animation:none!important;opacity:0!important}
+
+/* 4. Расфокус на подлёте — главная причина рывков именно при открытии.
+      Семь слоёв (четыре строки заголовка и три карточки) переходят с
+      blur(5–7px) в ноль, и каждый кадр движок переразмывает каждый, да ещё под
+      поворотом в перспективе. Полёт и проявление остаются: transform и opacity
+      уходят на композитор. Список длительностей сопоставляется по порядку,
+      поэтому opacity и transform сохраняют свои. */
+html.cheap .cv-title .ln,
+html.cheap .cv-claim .ln,
+html.cheap .plate.cover .stat{filter:none;transition-property:opacity,transform;
+  will-change:transform,opacity}
+
 /* хвост ландшафтного режима: правила навигации объявлены ниже по файлу,
    поэтому переопределяем их здесь, а не в блоке рядом с .plate */
 /* стрелка по центру ложится прямо на строку — уводим её к правому краю
@@ -2639,6 +2659,37 @@ html.booting{overscroll-behavior:none}
 'use strict';
 
 const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* ── облегчённый режим: класс .cheap на <html> ──
+   Ставим сразу там, где тяжёлые эффекты почти наверняка не по силам —
+   на устройствах с касанием. А дальше просто смотрим, держит ли движок темп:
+   считаем кадры в первые полторы секунды после запуска колоды. Порог мягкий:
+   реагируем не на среднее (оно проседает на первом кадре у всех), а на число
+   кадров длиннее 32 мс, то есть на реальные рывки. Так же лечится и Firefox,
+   и слабая машина, и старый Android — без угадывания браузера по имени. */
+const root = document.documentElement;
+if(matchMedia('(pointer: coarse)').matches) root.classList.add('cheap');
+function watchFrames(){
+  if(root.classList.contains('cheap') || reduced) return;
+  let prev = performance.now(), t0 = prev, frames = 0, longFrames = 0;
+  (function tick(now){
+    const dt = now - prev; prev = now;
+    /* В скрытой вкладке requestAnimationFrame останавливается, и первый кадр
+       после возврата приходит с огромным dt — по нему нельзя судить о движке.
+       Поэтому считаем только пока вкладка на виду, а окно замера сбрасываем,
+       если её сворачивали. */
+    if(document.visibilityState !== 'visible'){
+      t0 = now; frames = 0; longFrames = 0;
+      requestAnimationFrame(tick); return;
+    }
+    if(frames > 4 && dt > 32) longFrames++;
+    frames++;
+    if(now - t0 < 1500){ requestAnimationFrame(tick); return; }
+    /* решение принимаем только на достаточной выборке: иначе редкие кадры
+       придушенной вкладки сами по себе выглядят как рывки */
+    if(frames > 40 && longFrames > 8) root.classList.add('cheap');
+  })(prev);
+}
 const plates  = [...document.querySelectorAll('.plate')];
 const NBSP    = ' ';
 
@@ -2815,7 +2866,6 @@ if(cue){
     if(fresh) io.unobserve(t);
     /* на время перелёта глушим фоновые петли соседних плит: спуск и десяток
        бесконечных анимаций в одном кадровом бюджете — и есть тот подтормоз */
-    const root = document.documentElement;
     root.classList.add('gliding');
     t.scrollIntoView({block:'center', behavior: reduced ? 'auto' : 'smooth'});
     let done = false;
@@ -2868,7 +2918,7 @@ if(intro && !reduced){
     }
     /* слайд заводится ровно тогда, когда белое накрыло экран целиком:
        он собирается за заливкой и проявляется из неё, а не подставляется готовым */
-    setTimeout(startDeck, 720);
+    setTimeout(()=>{ startDeck(); watchFrames(); }, 720);
     setTimeout(()=> intro.remove(), 760);
     setTimeout(()=> window.__syncCue && window.__syncCue(), 2600);
   };
@@ -2883,6 +2933,7 @@ if(intro && !reduced){
 }else{
   if(intro) intro.remove();
   startDeck();
+  watchFrames();
   if(window.__syncCue) window.__syncCue();
 }
 })();
