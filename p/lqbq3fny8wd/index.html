@@ -1203,6 +1203,13 @@ h3{font-size:var(--fs-h4);line-height:1.2;letter-spacing:-.02em;font-weight:650}
   /* 17.9cqw — ровно между «Открытие контрактов» и «Старт резервирования»:
      первый заголовок остаётся в строку, второй переносится, как в референсе */
   max-width:17.9cqw}
+/* Первая карточка: со словом «гарантированного» общий предел 17,9cqw
+   рвал заголовок на три строки, причём «Старт» оставался один в первой.
+   Предел здесь снят до ширины колонки, а трекинг поджат на 0,008em —
+   этого хватает, чтобы «Старт гарантированного» встало в строку
+   (223 px из 227). Если у чужого рендерера кириллица шире, вернутся три
+   строки — они тоже помещаются, поэтому хуже не станет. */
+.t5-k1 .t5-h{max-width:100%;letter-spacing:-.026em}
 .t5-rule{display:block;width:4.1cqw;height:.18cqw;margin-top:.95cqw;border-radius:.18cqw;
   background:var(--tone);
   transform:scaleX(0);transform-origin:0 50%;
@@ -2480,7 +2487,7 @@ html.booting{overscroll-behavior:none}
           </svg>
         </span>
         <div>
-          <h3 class="t5-h">Старт резервирования</h3>
+          <h3 class="t5-h">Старт гарантированного резервирования</h3>
           <span class="t5-rule" style="--rule-delay:1060ms" aria-hidden="true"></span>
           <p class="t5-p">USDT и Bitbon ×0,3 размещены на основном балансе Bit Trade.</p>
         </div>
