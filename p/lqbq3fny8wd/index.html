@@ -1523,7 +1523,10 @@ h3{font-size:var(--fs-h4);line-height:1.2;letter-spacing:-.02em;font-weight:650}
 .t7-info{left:var(--pad-l);top:91.28%;width:2.3cqw;aspect-ratio:1;border-radius:50%;z-index:2;
   display:grid;place-items:center;border:1.7px solid #1560F8;color:#1560F8;
   font-size:var(--fs-small);font-weight:700;line-height:1}
-.t7-foot{left:7.2%;top:var(--y-foot);width:64%;z-index:2;
+/* 64 % были подогнаны под двухстрочную сноску из референса. Текст стал
+   одной строкой с запасом 3 % — рендерер пошире разорвал бы её на две.
+   Справа пусто, поэтому поле расширено: пока строка влезает, вид не меняется. */
+.t7-foot{left:7.2%;top:var(--y-foot);width:80%;z-index:2;
   font-size:var(--fs-small);line-height:1.45;color:var(--ink-foot)}
 
 @media (max-width:900px) and (orientation:portrait){
@@ -2689,7 +2692,7 @@ html.booting{overscroll-behavior:none}
 
     <span class="t7-footrule reveal" data-delay="1060ms" aria-hidden="true"></span>
     <span class="t7-info reveal" data-delay="1090ms" aria-hidden="true">i</span>
-    <p class="t7-foot reveal" data-delay="1100ms">Ожидаемая выгода не гарантируется. До заключения контракта оцените срок,<br>ликвидность, риски и последствия досрочного выхода.</p>
+    <p class="t7-foot reveal" data-delay="1100ms">Участие в гарантированном резервировании до 7 октября ограничено пулом 500 000 USDT и не гарантировано.</p>
   </div>
 </article>
 
